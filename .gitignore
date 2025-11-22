@@ -1,0 +1,21 @@
+# Node modules
+node_modules/
+
+# Environment files
+.env
+.env.local
+# Allow example env files to be committed
+!*.example
+
+# Logs
+*.log
+
+# VSCode
+.vscode/
+
+# Build / output
+dist/
+coverage/
+
+# MacOS
+.DS_Store

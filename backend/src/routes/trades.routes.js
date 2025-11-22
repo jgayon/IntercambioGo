@@ -3,7 +3,7 @@ import {
   getTrades,
   createTrade,
   updateTradeStatus
-} from "../controllers/trades.controller.js";
+} from "../controllers/trades.controllers.js";
 
 const router = express.Router();
 
