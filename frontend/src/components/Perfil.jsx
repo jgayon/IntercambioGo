@@ -61,6 +61,21 @@ function Perfil() {
       </button>
 
       <button
+        onClick={() => navigate('/membresia')}
+        style={{
+          backgroundColor: '#f1c40f',
+          color: 'white',
+          border: 'none',
+          padding: '0.6rem 1rem',
+          borderRadius: '5px',
+          marginTop: '1rem',
+          cursor: 'pointer'
+        }}
+      >
+        ⭐ Mi Membresía
+      </button>
+
+      <button
         onClick={handleLogout}
         style={{
           backgroundColor: '#e74c3c',

@@ -37,10 +37,13 @@ function LoginRegister() {
       }
     } else {
       // REGISTRO
-      localStorage.setItem('user', JSON.stringify(formData));
-      localStorage.setItem('loggedIn', 'true');
-      alert(`🎉 Usuario registrado: ${formData.name}`);
-      navigate('/perfil');
+        localStorage.setItem(
+          'user',
+          JSON.stringify({ ...formData, points: 0 })
+        );
+        localStorage.setItem('loggedIn', 'true');
+        alert(`🎉 Usuario registrado: ${formData.name}`);
+        navigate('/perfil');
     }
   };
 
