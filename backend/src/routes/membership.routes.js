@@ -1,5 +1,5 @@
 import express from "express";
-import { getUserMembership, addPoints } from "../controllers/membership.controller.js";
+import { getUserMembership, addPoints } from "../controllers/membership.controllers.js";
 const router = express.Router();
 
 router.get("/:userId", getUserMembership); // obtener nivel y puntos
