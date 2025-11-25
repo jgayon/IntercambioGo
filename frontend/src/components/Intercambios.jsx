@@ -13,26 +13,38 @@ function Intercambios() {
 
   useEffect(() => {
     const u = JSON.parse(localStorage.getItem("user"));
+    if (!u) {
+      navigate("/login");
+      return;
+    }
     setUser(u);
 
     const fetchProduct = async () => {
       const res = await API.get("/products");
-      const p = res.data.find(pr => pr.id === Number(selectedProductId));
+      const p = res.data.find((pr) => pr.id === Number(selectedProductId));
       setProduct(p);
     };
 
-    fetchProduct();
-
     const fetchMyProducts = async () => {
       const res = await API.get("/products");
-      setMyProducts(res.data.filter(pr => pr.owner_id === u.id));
+      const uid = Number(u.id);
+      const pid = Number(selectedProductId);
+
+      setMyProducts(
+        res.data.filter(
+          (pr) => Number(pr.owner_id) === uid && pr.id !== pid   // excluye el producto seleccionado
+        )
+      );
     };
+
+    fetchProduct();
     fetchMyProducts();
-  }, [selectedProductId]);
+  }, [selectedProductId, navigate]);
+
 
   if (!product || !user) return <p>Cargando...</p>;
 
-  if (product.owner_id === user.id) {
+  if (Number(product.owner_id) === Number(user.id)) {
     return (
       <div style={{ padding: "2rem" }}>
         <Link to="/productos">⬅ Volver</Link>
@@ -40,6 +52,7 @@ function Intercambios() {
       </div>
     );
   }
+
 
   const requestTrade = async (myItem) => {
     await API.post("/trades", {

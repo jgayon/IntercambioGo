@@ -1,66 +1,87 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from "react";
+// import API from "../api/axios";
+// import ProductCard from "./ProductCard";
+
+// function ProductList() {
+//   const [products, setProducts] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   const fetchProducts = async () => {
+//     try {
+//       // 👇 AHORA SI: tu backend real
+//       const res = await API.get("/products");
+//       setProducts(res.data);
+//     } catch (err) {
+//       console.error("Error obteniendo productos:", err);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchProducts();
+//   }, []);
+
+//   if (loading) return <p style={{ textAlign: "center" }}>Cargando productos...</p>;
+
+//   return (
+//     <div style={{ padding: "1rem" }}>
+//       <h1>Catálogo de Productos</h1>
+
+//       <div
+//         style={{
+//           display: "grid",
+//           gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+//           gap: "1rem",
+//         }}
+//       >
+//         {products.map((product) => (
+//           <ProductCard key={product.id} product={product} />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default ProductList;
+
+import React from 'react';
 import { Link } from 'react-router-dom';
-import ProductCard from './ProductCard';
 
 function ProductList() {
-  const [externalProducts, setExternalProducts] = useState([]);
-  const [myProducts, setMyProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // --- Estilos de la página de Productos ---
+  const pageStyle = {
+    padding: '2rem 5vw 4rem', // Espacio alrededor del contenido
+    color: '#f9fafb', // Color de texto claro para el fondo oscuro
+    minHeight: 'calc(100vh - 120px)', // Para asegurar que ocupe la mayor parte de la pantalla
+    boxSizing: 'border-box',
+  };
 
-  useEffect(() => {
-    fetch('https://dummyjson.com/products?limit=15')
-      .then(res => res.json())
-      .then(data => setExternalProducts(data.products))
-      .finally(() => setLoading(false));
+  const titleStyle = {
+    fontSize: '2.5rem',
+    fontWeight: 'bold',
+    marginBottom: '1rem',
+    color: 'white', // Color blanco para que contraste con el fondo oscuro
+  };
 
-    const local = JSON.parse(localStorage.getItem("myProducts") || "[]");
-    setMyProducts(local);
-  }, []);
-
-  if (loading) return <p style={{ textAlign: "center" }}>Cargando...</p>;
-
-  const allProducts = [
-    ...myProducts.map(p => ({
-      ...p,
-      isLocal: true
-    })),
-    ...externalProducts.map(p => ({ ...p, isLocal: false }))
-  ];
-
+  // Aquí iría el resto del contenido del catálogo, como filtros y la cuadrícula de productos.
+  
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>🛒 Catálogo de Productos</h1>
+    <div style={pageStyle}>
+      {/* Título principal */}
+      <h1 style={titleStyle}>
+        Catálogo de Productos
+      </h1>
 
-      <div style={{ marginBottom: '1rem' }}>
-        <Link to="/" style={{ color: '#00bfa5', textDecoration: 'underline' }}>
-          Volver al Home
-        </Link>
+      {/* Aquí iría la cuadrícula de productos y la lógica de filtrado/búsqueda */}
+      <div style={{ marginTop: '2rem' }}>
+        {/* Simulación del contenido de la lista de productos */}
+        <p style={{ color: '#9ca3af' }}>Cargando productos...</p>
       </div>
-
-      <div style={{ textAlign: 'right', marginBottom: '1rem' }}>
-        <Link to="/subir-producto">
-          <button style={{
-            background: "#00bfa5",
-            color: "white",
-            padding: "0.5rem 1rem",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer"
-          }}>
-            ➕ Subir Producto
-          </button>
-        </Link>
-      </div>
-
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '1rem'
-      }}>
-        {allProducts.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      
+      {/* Si usas clases CSS, usa:
+          <h1 className="catalog-title">Catálogo de Productos</h1>
+      */}
     </div>
   );
 }

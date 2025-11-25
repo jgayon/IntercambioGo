@@ -1,73 +1,75 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import API from "../api/axios";
 import { getMembershipLevel, getNextLevel } from "../utils/membership";
-import { Link } from "react-router-dom";
 
-function Membresia() {
+const Membresia = () => {
   const [user, setUser] = useState(null);
+  const [points, setPoints] = useState(0);
+  const [level, setLevel] = useState("");
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    let u = JSON.parse(localStorage.getItem("user"));
-    if (!u.points) u.points = 0; // compatibilidad
+    const loggedIn = localStorage.getItem("loggedIn");
+    const stored = localStorage.getItem("user");
+
+    if (!loggedIn || !stored) {
+      navigate("/login");
+      return;
+    }
+
+    const u = JSON.parse(stored);
     setUser(u);
-  }, []);
 
-  if (!user) return <p>Cargando...</p>;
+    const fetchMembership = async () => {
+      try {
+        const res = await API.get(`/membership/${u.id}`);
 
-  const level = getMembershipLevel(user.points);
-  const next = getNextLevel(user.points);
+        const backendPoints = res.data.points ?? 0;
+        const backendLevel = res.data.level ?? "";
+
+        setPoints(backendPoints);
+        setLevel(backendLevel);  // 👈 usar lo que manda el backend
+
+        const updatedUser = { ...u, points: backendPoints };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+      } catch (err) {
+        console.error("Error obteniendo membresía:", err);
+        const fallbackPoints = u.points ?? 0;
+        setPoints(fallbackPoints);
+        setLevel(getMembershipLevel(fallbackPoints)); // opcional
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMembership();
+  }, [navigate]);
+
+  if (loading || !user) {
+    return <p style={{ padding: "2rem" }}>Cargando información de membresía...</p>;
+  }
+
+  const next = getNextLevel(points);
 
   return (
-    <div style={{ padding: "2rem", maxWidth: "600px", margin: "auto" }}>
-      <Link to="/perfil">⬅ Volver</Link>
-
-      <h1>⭐ Mi Membresía</h1>
-
+    <div style={{ padding: "2rem" }}>
+      <h1>Mi Membresía</h1>
       <p><strong>Usuario:</strong> {user.name}</p>
-      <p><strong>Puntos:</strong> {user.points}</p>
+      <p><strong>Puntos actuales:</strong> {points}</p>
       <p><strong>Nivel actual:</strong> {level}</p>
 
-      <h3>Progreso hacia el siguiente nivel</h3>
-      <p>Necesitas {next.remaining} puntos para llegar a {next.next}</p>
-
-      <div style={{
-        width: "100%",
-        height: "10px",
-        background: "#ccc",
-        borderRadius: "5px",
-        marginTop: "1rem"
-      }}>
-        <div
-          style={{
-            width: `${Math.min((user.points % 100) / 100 * 100, 100)}%`,
-            background: "#00bfa5",
-            height: "100%",
-            borderRadius: "5px"
-          }}
-        ></div>
-      </div>
-
-      <h3 style={{ marginTop: "2rem" }}>🎁 Beneficios</h3>
-      <ul>
-        {level === "🟢 Básico" && <li>Acceso normal</li>}
-
-        {level === "🔵 Plata" && <>
-          <li>Prioridad en intercambios</li>
-          <li>Más visibilidad</li>
-        </>}
-
-        {level === "🟡 Oro" && <>
-          <li>Todos los beneficios de Plata</li>
-          <li>Acceso anticipado a productos</li>
-        </>}
-
-        {level === "🔥 Premium" && <>
-          <li>Máxima visibilidad</li>
-          <li>Soporte preferencial</li>
-          <li>Acceso anticipado VIP</li>
-        </>}
-      </ul>
+      {next && next.remaining > 0 ? (
+        <p>
+          Te faltan <strong>{next.remaining}</strong> puntos para subir al nivel{" "}
+          <strong>{next.next}</strong>.
+        </p>
+      ) : (
+        <p>🎉 ¡Ya alcanzaste el nivel máximo Premium!</p>
+      )}
     </div>
   );
-}
+};
 
 export default Membresia;

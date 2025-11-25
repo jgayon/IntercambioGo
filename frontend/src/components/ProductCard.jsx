@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
 
 function ProductCard({ product }) {
+  const description = product?.description || "";
+
+  // Solo agregamos "..." si la descripción es más larga de 60 caracteres
+  const shortDescription =
+    description.length > 60
+      ? `${description.slice(0, 60)}...`
+      : description;
+
   return (
     <div
       style={{
@@ -21,7 +29,7 @@ function ProductCard({ product }) {
           alt={product.title}
           style={{
             width: "100%",
-            height: "200px",
+            height: "180px",
             objectFit: "cover",
             borderRadius: "5px",
             marginBottom: "0.8rem",
@@ -33,7 +41,7 @@ function ProductCard({ product }) {
         </h3>
 
         <p style={{ color: "#666", fontSize: "0.9rem", minHeight: "50px" }}>
-          {product.description.slice(0, 60)}...
+          {shortDescription}
         </p>
 
         <strong style={{ color: "#e74c3c", fontSize: "1.2rem" }}>
@@ -43,11 +51,10 @@ function ProductCard({ product }) {
         <div style={{ marginTop: "0.8rem" }}>
           <button
             style={{
-              width: "100%",
-              padding: "0.6rem",
               backgroundColor: "#00bfa5",
-              color: "white",
+              color: "#fff",
               border: "none",
+              padding: "0.5rem 1rem",
               borderRadius: "6px",
               cursor: "pointer",
               fontWeight: "bold",

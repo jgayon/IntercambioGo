@@ -1,10 +1,13 @@
-import pg from "pg";
+// src/config/db.js
+import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 
 dotenv.config();
-const { Pool } = pg;
 
-export const db = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
+export const db = mysql.createPool({
+  host: process.env.DB_HOST || "localhost",
+  port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306,
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "",
+  database: process.env.DB_NAME || "intercambiogo",
 });

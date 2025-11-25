@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import API from "../api/axios"; 
 
 function EditarPerfil() {
   const [user, setUser] = useState({});
@@ -14,12 +15,24 @@ function EditarPerfil() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.setItem('user', JSON.stringify(user));
-    alert('✅ Perfil actualizado');
-    navigate('/perfil');
+    try {
+      const res = await API.put(`/users/${user.id}`, {
+        name: user.name,
+        email: user.email,
+        password: user.password, // opcional
+      });
+
+      localStorage.setItem("user", JSON.stringify(res.data));
+      alert("✅ Perfil actualizado");
+      navigate("/perfil");
+    } catch (err) {
+      console.error(err);
+      alert("Error actualizando perfil");
+    }
   };
+
 
   return (
     <div style={{

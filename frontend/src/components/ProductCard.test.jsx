@@ -16,8 +16,14 @@ describe('ProductCard', () => {
     render(<ProductCard product={mockProduct} />);
 
     // Verificar que todos los elementos estén presentes
-    expect(screen.getByText('Producto de prueba')).toBeInTheDocument();
-    expect(screen.getByText('Una descripción de prueba para el producto')).toBeInTheDocument();
+    expect(screen.getByText(/Producto de prueba/i)).toBeInTheDocument();
+
+    // Descripción (usando regex para no depender de truncado)
+    expect(
+      screen.getByText(/Una descripción de prueba/i)
+    ).toBeInTheDocument();
+
+    // Precio
     expect(screen.getByText(/150/)).toBeInTheDocument();
 
     // Verificar que la imagen tenga los atributos correctos

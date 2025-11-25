@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,181 @@
 
 .read-the-docs {
   color: #888;
+} */
+
+/* Contenedor general de la SPA */
+/* .app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+} */
+
+/* Zona de contenido entre Navbar y Footer */
+/* .app-main {
+  flex: 1;
+} */
+
+/* ====== CATÁLOGO DE PRODUCTOS ====== */
+
+/* .catalog-page {
+  padding: 2rem 5vw 4rem;
+  color: #f9fafb;
+} */
+
+/* Encabezado del catálogo centrado */
+/* .catalog-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;      
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;       
 }
+
+.catalog-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.catalog-subtitle {
+  font-size: 1rem;
+  color: #9ca3af;
+} */
+
+/* Botón de acción (por ejemplo "Publicar producto") */
+/* .catalog-actions a {
+  background-color: #00bfa5;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.9rem;
+} */
+
+/* Grid responsive de tarjetas de productos */
+/* .catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+} */
+
+/* (Opcional) separador extra para el footer en páginas largas */
+/* .page-bottom-space {
+  margin-bottom: 2rem;
+} */
+
+
+/* Estilos globales ligeros (tal como venían por defecto o casi iguales) */
+
+/* Estilos globales ligeros (tal como venían por defecto o casi iguales) */
+
+/* #root {
+  margin: 0 auto;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+} */
+
+/* Estilos globales ligeros (tal como venían por defecto o casi iguales) */
+
+/* #root {
+  margin: 0 auto;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+} */
+
+/* Estilos globales ligeros (tal como venían por defecto o casi iguales) */
+
+#root {
+  margin: 0 auto;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  /* background-color: #ffffff; -> Este se ajusta en index.css */
+}
+
+/* Contenedor general de la SPA */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Zona de contenido entre Navbar y Footer */
+.app-main {
+  flex: 1;
+}
+
+/* El resto del código que estaba comentado en App.css (si lo quieres usar): */
+
+/* ====== CATÁLOGO DE PRODUCTOS ====== */
+
+/* .catalog-page {
+  padding: 2rem 5vw 4rem;
+  color: #f9fafb;
+} */
+
+/* Encabezado del catálogo centrado */
+/* .catalog-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;      
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;       
+}
+
+.catalog-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.catalog-subtitle {
+  font-size: 1rem;
+  color: #9ca3af;
+} */
+
+/* Botón de acción (por ejemplo "Publicar producto") */
+/* .catalog-actions a {
+  background-color: #00bfa5;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.9rem;
+} */
+
+/* Grid responsive de tarjetas de productos */
+/* .catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+} */
+/* (Opcional) separador extra para el footer en páginas largas */
+/* .page-bottom-space {
+  margin-bottom: 2rem;
+} */
